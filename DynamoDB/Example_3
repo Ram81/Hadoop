@@ -1,0 +1,79 @@
+var params = {
+    TableName: "Music",
+    KeySchema: [
+        {
+            AttributeName: "ID",
+            KeyType: "HASH"
+        },
+        {
+            AttributeName: "Album_Name",
+            KeyType: "RANGE"
+        }
+    ],
+    AttributeDefinitions: [
+        {
+            AttributeName: "ID",
+            AttributeType: "N"
+        },
+        {
+            AttributeName: "Album_Name",
+            AttributeType: "S"
+        },
+        {
+            AttributeName: "Hits",
+            AttributeType: "N"
+        }
+    ],
+    GlobalSecondaryIndexes: [
+        {
+            IndexName: "Index1",
+            KeySchema: [
+                {
+                    AttributeName: "Album_Name",
+                    KeyType: "HASH"
+                },
+                {
+                    AttributeName: "Hits",
+                    KeyType: "RANGE"
+                }
+            ],
+            Projection: {
+                ProjectionType: "ALL"
+            },
+            ProvisionedThroughput: { 
+              ReadCapacityUnits: 1,
+              WriteCapacityUnits: 1
+           },
+        }
+    ],
+    ProvisionedThroughput: { 
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1
+   },
+};
+dynamodb.createTable(params, function(err, data) {
+    if (err) {
+        ppJson(err); // an error occurred
+    } else if (data) {
+        ppJson(data);
+    }
+});
+dynamodb.listTables().eachPage(function(err, data) {
+    if (err) {
+        ppJson(err); // an error occurred
+    } else if (data) {
+        ppJson(data);
+    }
+});
+dynamodb.describeTable({ TableName: "Music" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+dynamodb.scan({ TableName: "Music" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});

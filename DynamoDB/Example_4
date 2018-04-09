@@ -1,0 +1,47 @@
+var params ={
+    TableName: "Music",
+    Item: {
+        "ID": { N: "1" },
+        "Album_Name": { S: "Chainsmokers" },
+        "Hits": { N: "200" }
+    }
+};
+
+/*
+dynamodb.putItem(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+*/
+dynamodb.scan({ TableName: "Music" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+params = { 
+    TableName: "Music", 
+    ScanIndexForward: true,
+    KeyConditionExpression: "ID = :id",
+    ExpressionAttributeValues: {
+        ":id": { N: "1" }
+    }
+};
+
+dynamodb.query(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+
+dynamodb.describeTable({ TableName: "Music" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});

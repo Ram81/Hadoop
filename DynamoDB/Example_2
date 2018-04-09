@@ -1,0 +1,98 @@
+dynamodb.listTables().eachPage(function(err, data) {
+    if (err) {
+        ppJson(err); // an error occurred
+    } else if (data) {
+        ppJson(data);
+    }
+});
+dynamodb.describeTable({ TableName: "Movies" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+dynamodb.scan({ TableName: "Movies" }, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+var params = {
+    Key: {
+        "ID": {
+            N: "1"
+        },
+        "Movie_Name": {
+            S: "Forest Gump"
+        }
+    },
+    TableName: "Movies",
+    AttributesToGet: [
+        "ID",
+        "Movie_Name"
+    ]
+};
+dynamodb.getItem(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+params = {
+    TableName: 'Movies',
+    Item: { 
+        ID: { N: "3" },
+        Movie_Name: { S: "Dhoom" },
+        Hits: { N: "8" }
+    }
+};
+
+dynamodb.putItem(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+params = {
+    TableName: "Movies",
+    FilterExpression: "ID >= :id",
+    ExpressionAttributeValues: {
+        ":id": {
+            N: "1"
+        }
+    }
+};
+
+dynamodb.scan(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+params = {
+    TableName: "Movies",
+    KeyExpression: "ID > :id and Movie_Name > :mn",
+    ScanIndexForward: false,
+    ExpressionAttributeValues: {
+        ":id": {
+            N: "1"
+        },
+        ":mn": {
+            S: ""
+        }
+    }
+};
+
+dynamodb.query(params, function(err, data){
+    if(err) 
+        ppJson(err);
+    else
+        ppJson(data);
+});
+
+
+
+
