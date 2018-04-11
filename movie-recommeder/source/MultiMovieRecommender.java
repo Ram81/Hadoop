@@ -105,6 +105,7 @@ public class MultiMovieRecommender {
 	public static class FoFReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 		private Text outtxt = new Text();
 		@Override
+
 		protected void reduce(Text txt, Iterable<IntWritable> values,
 				Reducer<Text, IntWritable, Text, IntWritable>.Context context)
 				throws IOException, InterruptedException {	

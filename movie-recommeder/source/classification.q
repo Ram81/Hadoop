@@ -5,7 +5,7 @@ create temporary function getResult as 'parallel_final_project.BayesFunc';
 
 use default;
 --selection, testing process
-INSERT OVERWRITE LOCAL DIRECTORY 'result/finalresult'
+INSERT OVERWRITE LOCAL DIRECTORY '/home/rockstar/Hadoop'
 SELECT movieid, rate, pro
 FROM(
 SELECT movieid, rate, getResult(male, age18, occ5, prob) as pro
