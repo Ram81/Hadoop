@@ -1,0 +1,6 @@
+
+jar -cfm CharCount.jar Manifest.txt *.class 
+
+hadoop fs -copyFromLocal /home/rockstar/Downloads/sample5a.txt input_data
+
+hadoop jar /home/rockstar/Hadoop/Distributed\ Example/CharCount.jar input_data output_data
