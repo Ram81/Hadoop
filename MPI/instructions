@@ -1,0 +1,15 @@
+sudo apt update
+sudo apt install libopenmpi-dev
+sudo apt install openmpi-bin
+
+subl server.c
+subl client.c
+mpicc server.c -o server
+mpicc client.c -o client
+
+mpirun -np 1 ./server
+
+Open another new terminal
+mpirun -np 1 ./client '1769275392.0;tcp://10.42.0.1,100.68.111.4:46110+1769275393.0;tcp://10.42.0.1,100.68.111.4::300'
+
+

@@ -1,0 +1,13 @@
+sudo apt-get update
+sudo apt-get install rpcbind
+subl fact.x
+rpcgen -a -C fact.x
+subl Makefile.fact
+subl fact_client.c
+subl fact_server.c
+make -f Makefile.fact
+
+In one terminal, run:
+sudo ./fact_server
+In another terminal, run:
+./fact_client localhost
